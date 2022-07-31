@@ -6,8 +6,8 @@
   <!-- load all styles css -->
   <link href="./assets/css/styles.css" rel="stylesheet">
   <link href="./assets/css/lightgallery.min.css" rel="stylesheet">
-  
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <title>Web Based Comic Book Reader</title>
 </head>
 
@@ -38,12 +38,9 @@
           <header class="w3-container w3-teal">
             <span onclick="document.getElementById('id01').style.display='none'"
               class="w3-button w3-display-topright">&times;</span>
-            <h2>Modal Header</h2>
+            <h2 id="mangaName"></h2>
           </header>
-
           <div class="w3-container">
-            <p>Some text..</p>
-            <p>Some text..</p>
           </div>
 
         </div>
@@ -57,14 +54,15 @@
     <div id="output"></div>
 
     <br><br>
+    Xantech &copy; 2019 - <span id='currYear'></span>
     Afif Zafri &copy; 2017 - <span id='currYear'></span>
   </center>
 
   <!-- fork me on github ribbon -->
-  <a href="https://github.com/afzafri/Web-Comic-Reader"><img style="position: absolute; top: 0; right: 0; border: 0;"
+  <!-- <a href="https://github.com/afzafri/Web-Comic-Reader"><img style="position: absolute; top: 0; right: 0; border: 0;"
       src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
       alt="Fork me on GitHub"
-      data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+      data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a> -->
 
   <!-- load all scripts -->
   <script src="./assets/js/jquery-3.2.0.min.js"></script>
@@ -72,6 +70,25 @@
   <script src="./assets/js/lightGallery/lightgallery-all.min.js"></script>
   <script src="./assets/js/script.js"></script>
   <script>
+    $(document).on("click", "#readNow", function () {
+
+      // get the comic file name
+      if (true) {
+        var comictitle = $(this).attr("comic_title");
+
+        var blob = null;
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "./comics/" + comictitle); // make sure to put all the comics inside "comics" directory in the root directory
+        xhr.responseType = "blob";
+        xhr.onload = function () {
+          blob = xhr.response;
+          var file = new File([blob], comictitle);
+          // open the comic
+          openComic(file);
+        };
+        xhr.send();
+      }
+    });
     function createMangaButton(manga) {
       let button = document.createElement("button");
       button.id = "readNow";
@@ -87,6 +104,10 @@
 
       document.querySelector("#internal").appendChild(button);
     }
+    function loadChapters() {
+
+    }
+    document.getElementById('id01').style.display = 'block';
     createMangaButton({ filename: "Dragon Ball Super 069 (2021) (Digital) (1r0n).cbz", image: "covers/DragonBallSuper.jpg", name: "Dragon Ball Super" });
   </script>
 </body>

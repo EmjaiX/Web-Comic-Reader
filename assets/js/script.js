@@ -32,24 +32,7 @@ $(document).ready(function () {
   });
 
   // ----- OPEN COMIC FROM INTERNAL FILE IN SERVER -----
-  $(document).on("click", "#readNow", function () {
-    // get the comic file name
-    if (1 == 2) {
-      var comictitle = $(this).attr("comic_title");
-
-      var blob = null;
-      var xhr = new XMLHttpRequest();
-      xhr.open("GET", "./comics/" + comictitle); // make sure to put all the comics inside "comics" directory in the root directory
-      xhr.responseType = "blob";
-      xhr.onload = function () {
-        blob = xhr.response;
-        var file = new File([blob], comictitle);
-        // open the comic
-        openComic(file);
-      };
-      xhr.send();
-    }
-  });
+  
 
   function openComic(file) {
     $("#output").hide();
